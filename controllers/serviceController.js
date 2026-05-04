@@ -6,7 +6,9 @@ const Service = require('../models/Service');
 const getServices = async (req, res) => {
   try {
     const query = req.query.all ? {} : { isActive: true };
-    const services = await Service.find(query).sort({ order: 1, createdAt: 1 });
+    const services = await Service.find(query)
+      .sort({ order: 1, createdAt: 1 })
+      .lean(); // plain JS objects → más rápido y menos memoria
     res.json(services);
   } catch (error) {
     res.status(500).json({ message: error.message });

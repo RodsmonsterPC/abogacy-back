@@ -31,4 +31,8 @@ const serviceSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Índice compuesto para la consulta más frecuente:
+// GET /api/services → find({ isActive: true }).sort({ order: 1, createdAt: 1 })
+serviceSchema.index({ isActive: 1, order: 1, createdAt: 1 });
+
 module.exports = mongoose.model('Service', serviceSchema);
